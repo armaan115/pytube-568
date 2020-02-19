@@ -255,7 +255,12 @@ class YouTube(object):
         :rtype: str
 
         """
-        return self.player_config_args['thumbnail_url']
+        details = self.player_config_args['player_response']['videoDetails']
+            
+        thumbnails = [thumb['url'] for thumb in details['thumbnail']['thumbnails']]      
+        return thumbnails
+
+        # Thank you https://github.com/nficano/pytube/issues/150#issuecomment-403890571
 
     @property
     def title(self):
@@ -296,7 +301,10 @@ class YouTube(object):
         :rtype: str
 
         """
-        return self.player_config_args['length_seconds']
+        return self.player_config_args['player_response']['videoDetails']['lengthSeconds']
+        
+        # Thank you https://github.com/nficano/pytube/issues/497#issuecomment-554132442
+        
 
     @property
     def views(self):
